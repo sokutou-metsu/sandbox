@@ -27,13 +27,14 @@ def is_not_first_birth(record):
 
 def mean(data):
     u"""算術平均を求める"""
-    return float(reduce(lambda s, x: s + x, data, 0)) / len(data)
+    return float(sum(data)) / len(data)
 
 
 def fetch_avg_prglength(table, cond=is_outcome):
     u"""条件に合うレコードの数と妊娠期間を求める"""
-    match = filter(cond, table.records)
-    avg_prglength = mean(map(lambda r: r.prglength, match))
+    match = survey.Pregnancies()
+    match.ExtendRecords(filter(cond, table.records))
+    avg_prglength = mean(map(lambda r: r.prglength, match.records))
     return (len(match), avg_prglength)
 
 
