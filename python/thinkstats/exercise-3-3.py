@@ -22,11 +22,8 @@ def Percentile(scores, percentile_rank):
     u"""任意のパーセンタイル順位に対応する点数を返す
     """
     scores.sort()
-    for score in scores:
-        if PercentileRank(scores, score) >= percentile_rank:
-            return score
-
-    return None
+    index = percentile_rank * (len(scores) - 1) / 100
+    return scores[index]
 
 
 class TestSample(unittest.TestCase):
