@@ -85,3 +85,4 @@ OCAML_NATIVE_LINK_FLAGS +=
 
 clean:
 	rm -f .omakedb .omakedb.lock
+	rm -f *.omc
