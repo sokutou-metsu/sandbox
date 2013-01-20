@@ -1,0 +1,27 @@
+
+# Phony targets
+.PHONY: all clean
+
+# Subdirectories
+.SUBDIRS: factorial
+
+# Include path
+OCAMLINCLUDES += factorial
+
+# Build an OCaml program
+FILES[] =
+    main
+
+PROGRAM = ../bin/sample
+OCAML_LIBS += ./factorial/factorial
+OCAML_CLIBS +=
+OCAML_OTHER_LIBS +=
+OCAML_LIB_FLAGS +=
+
+all: $(OCamlProgram $(PROGRAM), $(FILES))
+
+clean:
+	rm -rf *~ *.omc *.cm[ix] *.cma *.cmxa *.o *.a *.annot
+	rm -rf $(PROGRAM)
+
+.DEFAULT: all

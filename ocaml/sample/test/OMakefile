@@ -1,0 +1,36 @@
+
+# Phony targets
+.PHONY: test clean
+
+# Subdirectories
+.SUBDIRS: factorial
+
+USE_OCAMLFIND = true
+
+OCAMLPACKS[] =
+    oUnit
+
+# Include path
+OCAMLINCLUDES += ./factorial
+
+# Build an OCaml program
+FILES[] =
+    main
+
+PROGRAM = do_test
+OCAML_LIBS += $(ROOT)/src/factorial/factorial ./factorial/testFactorial
+OCAML_CLIBS +=
+OCAML_OTHER_LIBS +=
+OCAML_LIB_FLAGS +=
+
+test: $(OCamlProgram $(PROGRAM), $(FILES))
+
+clean:
+	rm -rf *~ *.omc *.cm[ix] *.cma *.cmxa *.o *.a *.annot
+	rm -rf $(PROGRAM)
+
+.BUILD_SUCCESS:
+    if $(mem test, $(TARGETS))
+        ./$(PROGRAM) && echo ""
+
+.DEFAULT: test

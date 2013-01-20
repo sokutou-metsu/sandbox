@@ -1,0 +1,15 @@
+## for OCaml
+
+*.cm[ix]
+*.cma
+*.cmxa
+*.o
+*.opt
+*.a
+*.annot
+
+## for OMake
+
+*.omakedb
+*.omakedb.lock
+*.omc

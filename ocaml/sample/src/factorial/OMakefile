@@ -1,0 +1,18 @@
+
+# Phony targets
+.PHONY: all clean
+
+# Build an OCaml library
+
+FILES[] =
+   factorial
+
+LIB = factorial
+
+all: $(OCamlLibrary $(LIB), $(FILES))
+
+clean:
+	rm -rf *~ *.omc *.cm[ix] *.cma *.cmxa *.o *.a *.annot
+	rm -rf $(LIB)
+
+.DEFAULT: all
