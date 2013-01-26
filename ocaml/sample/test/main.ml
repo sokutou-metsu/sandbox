@@ -4,12 +4,9 @@ open TestFactorial
 open OUnit
 
 let suite =
-  "main" >::: [
+  "Sample" >::: [
     TestFactorial.suite
   ]
 
 let _ =
-  begin
-    ignore (run_test_tt_main suite);
-    ()
-  end
+  run_test_tt_main suite

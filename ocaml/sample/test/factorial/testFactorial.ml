@@ -5,11 +5,13 @@ open OUnit
 
 let test_positive () =
   begin
-    assert_equal 1 (factorial 1);
     assert_equal 2 (factorial 2);
     assert_equal 6 (factorial 3);
     assert_equal 24 (factorial 4)
   end
+
+let test_first () =
+  assert_equal 1 (factorial 1)
 
 let test_zero () =
   assert_equal 1 (factorial 0)
@@ -21,8 +23,9 @@ let test_negative () =
 
 
 let suite =
-  "factorial" >::: [
+  "Test Factorial" >::: [
     "test_positive" >:: test_positive;
+    "test_first" >:: test_first;
     "test_zero" >:: test_zero;
     "test_negative" >:: test_negative
   ]
