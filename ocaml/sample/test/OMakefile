@@ -30,6 +30,7 @@ clean:
 	rm -rf $(PROGRAM)
 
 .BUILD_SUCCESS:
+    OMakeFlags(--no--progress)
     if $(mem test, $(TARGETS))
         ./$(PROGRAM) && echo ""
 
