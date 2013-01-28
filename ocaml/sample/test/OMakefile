@@ -3,7 +3,7 @@
 .PHONY: test clean
 
 # Subdirectories
-.SUBDIRS: factorial
+.SUBDIRS: utility factorial
 
 USE_OCAMLFIND = true
 
@@ -11,14 +11,17 @@ OCAMLPACKS[] =
     oUnit
 
 # Include path
-OCAMLINCLUDES += ./factorial
+OCAMLINCLUDES += ./utility ./factorial
 
 # Build an OCaml program
 FILES[] =
     main
 
 PROGRAM = do_test
-OCAML_LIBS += $(ROOT)/src/factorial/factorial ./factorial/testFactorial
+OCAML_LIBS += $(ROOT)/src/factorial/factorial \
+              ./factorial/testFactorial \
+              $(ROOT)/src/utility/utility \
+              ./utility/testUtility
 OCAML_CLIBS +=
 OCAML_OTHER_LIBS +=
 OCAML_LIB_FLAGS +=

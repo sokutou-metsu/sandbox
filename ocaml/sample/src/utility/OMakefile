@@ -1,0 +1,18 @@
+
+# Phony targets
+.PHONY: all clean
+
+# Build an OCaml library
+
+FILES[] =
+   utility
+
+LIB = utility
+
+all: $(OCamlLibrary $(LIB), $(FILES))
+
+clean:
+	rm -rf *~ *.omc *.cm[ix] *.cma *.cmxa *.o *.a *.annot
+	rm -rf $(LIB)
+
+.DEFAULT: all

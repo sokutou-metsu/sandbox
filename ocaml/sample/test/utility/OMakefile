@@ -1,0 +1,26 @@
+
+# Phony targets
+.PHONY: test clean
+
+USE_OCAMLFIND = true
+
+OCAMLPACKS[] =
+    oUnit
+
+# Include path
+OCAMLINCLUDES += $(ROOT)/src/utility
+
+# Build an OCaml library
+
+FILES[] =
+   testFold
+
+LIB = testUtility
+
+test: $(OCamlLibrary $(LIB), $(FILES))
+
+clean:
+	rm -rf *~ *.omc *.cm[ix] *.cma *.cmxa *.o *.a *.annot
+	rm -rf $(LIB)
+
+.DEFAULT: test
