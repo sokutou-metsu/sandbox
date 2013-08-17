@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+
+    <meta charset="utf-8">
+    <title>2.9 カスタムイベントとjQueryプラグイン</title>
+
+    <style type="text/css">
+     #tabs {
+       padding: 0;
+       list-style: none;
+       overflow: hidden;
+     }
+
+     #tabs li {
+       float: left;
+       padding: 10px;
+       cursor: pointer;
+     }
+
+     #tabs li.active { color: red; }
+
+     #tab-content div { display: none; }    
+     #tab-content .active { display: block; }
+    </style>
+
+  </head>
+
+  <body>
+
+    <h1>カスタムイベントとjQueryプラグイン</h1>
+    <p><cite>『ステートフル JavaScript』</cite> Alex MacCaw p.28</p>
+
+    <div>
+      <ul>
+        <li>カスタムイベントはDOMを操作するどんな種類のロジックの作成にも利用できる。</li>
+        <li>アプリケーションに何らかの機能を追加するときには、<br>その機能を抽象化してプラグインへと切り出すことができないか検討する。</li>
+        <li>これによって各機能の疎結合化が促進され、再利用可能なライブラリを作成できる可能性も高まる。</li>
+      </ul>
+    </div>
+
+    <div>
+      <h2>Sample</h2>
+      <hr />
+
+      <ul id="tabs">
+        <li data-tab="sect1">Sect1</li>
+        <li data-tab="sect2">Sect2</li>
+        <li data-tab="sect3">Sect3</li>
+        <li data-tab="sect4">Sect4</li>
+        <li data-tab="sect5">Sect5</li>
+      </ul>
+
+      <div id="tab-content">
+        <div data-tab="sect1">Sect1 content</div>
+        <div data-tab="sect2">Sect2 content</div>
+        <div data-tab="sect3">Sect3 content</div>
+        <div data-tab="sect4">Sect4 content</div>
+        <div data-tab="sect5">Sect5 content</div>
+      </div>
+    </div>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+
+     (function ($) {
+
+       /* change.tabs というイベントを定義し、
+        * タブがクリックされたときにこのイベントが発生するようにする。
+        * activeクラス関連の操作を行うイベントハンドラをいくつか定義して
+        * change.tabs に関連づける。
+        *
+        * タブの切り替えのためのイベントハンドラを複数に分割でき、
+        * プラグインの拡張が容易になる。
+        * たとえば、 change.tabs イベントを発生させ、
+        * このイベントを監視しているハンドラを呼び出すことによって
+        * プログラムの中からタブを切り替えるといったことが可能になる。
+        */
+       $.fn.tabs = function (control) {
+         var element = this;
+         control = $(control);
+
+         element.delegate('li', 'click', function () {
+           // タブの名前を取得する
+           var tabName = $(this).attr('data-tab');
+
+           // タブのクリック時にカスタムイベントを発生させる
+           element.trigger('change.tabs', tabName);
+         });
+
+         // カスタムイベントを監視する
+         element.bind('change.tabs', function(e, tabName) {
+           element.find('li').removeClass('active');
+           element.find('>[data-tab="' + tabName + '"]').addClass('active');
+           control.find('>[data-tab]').removeClass('active');
+           control.find('>[data-tab="' + tabName + '"]').addClass('active');
+         });
+
+         // 最初のタブをアクティブ化する
+         var firstName = element.find('li:first').attr('data-tab');
+         element.trigger('change.tabs', firstName);
+
+         return this;
+       };
+
+
+       $('ul#tabs').tabs('#tab-content');
+
+     }(jQuery));
+
+    </script>
+
+  </body>
+</html>
